@@ -32,6 +32,8 @@ namespace CalculatorApp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "1";
             this.textBox1.Text += input;
@@ -39,6 +41,8 @@ namespace CalculatorApp
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "2";
             this.textBox1.Text += input;
@@ -46,6 +50,8 @@ namespace CalculatorApp
 
         private void button3_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "3";
             this.textBox1.Text += input;
@@ -53,6 +59,8 @@ namespace CalculatorApp
 
         private void button4_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "4";
             this.textBox1.Text += input;
@@ -60,6 +68,8 @@ namespace CalculatorApp
 
         private void button5_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "5";
             this.textBox1.Text += input;
@@ -67,6 +77,8 @@ namespace CalculatorApp
 
         private void button6_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "6";
             this.textBox1.Text += input;
@@ -74,6 +86,8 @@ namespace CalculatorApp
 
         private void button7_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "7";
             this.textBox1.Text += input;
@@ -81,6 +95,8 @@ namespace CalculatorApp
 
         private void button8_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "8";
             this.textBox1.Text += input;
@@ -88,6 +104,8 @@ namespace CalculatorApp
 
         private void button9_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "9";
             this.textBox1.Text += input;
@@ -95,14 +113,11 @@ namespace CalculatorApp
 
         private void button10_Click(object sender, EventArgs e)
         {
+            ClearResult();
+
             this.textBox1.Text = "";
             input += "0";
             this.textBox1.Text += input;
-        }
-
-        private void button11_Click(object sender, EventArgs e)
-        {
-            input += ".";
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -133,19 +148,11 @@ namespace CalculatorApp
             this.textBox1.Text += input;
         }
 
-        private void button16_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void button22_Click(object sender, EventArgs e)
         {
             var parser = new ExpressionParser();
+            
+            txtResult.Text = string.Empty;
 
             try
             {
@@ -153,22 +160,43 @@ namespace CalculatorApp
 
                 if (obj != null)
                 {
-                    //Form2 obj = (Form2)Application.OpenForms["Form2"];
                     obj.Close();
                 }
 
-                txtResult.Text = parser.Execute(textBox1.Text).ToString();
+                if (parser.Execute(textBox1.Text).ToString() == "∞")
+                {
+                    MessageBox.Show("Divide by zero not allowed!");
+
+                    ClearInputs();
+                }
+                else
+                {
+                    txtResult.Text = parser.Execute(textBox1.Text).ToString();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
+
+                ClearInputs();
             }
+        }
+
+        public void ClearInputs()
+        {
+            this.textBox1.Text = string.Empty;
+            txtResult.Text = string.Empty;
+            this.input = string.Empty;
+        }
+
+        public void ClearResult()
+        {
+            txtResult.Text = string.Empty;
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
-            this.textBox1.Text = "";
-            this.input = string.Empty;
+            ClearInputs();
         }
 
         private void button18_Click(object sender, EventArgs e)
